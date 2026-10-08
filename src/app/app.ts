@@ -10,7 +10,7 @@ import { FriendsList } from './components/friends-list/friends-list';
 import { ConferenceList } from './components/conference-list/conference-list';
 @Component({
   selector: 'app-root',
-  imports: [FormsModule, Footer, Header, NavBar,ConferenceList, UserProfile, Notifications, FriendsList],
+  imports: [RouterOutlet, FormsModule, Footer, Header, NavBar,ConferenceList, UserProfile, Notifications, FriendsList],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
