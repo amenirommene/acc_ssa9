@@ -1,0 +1,22 @@
+<form [formGroup]="myForm">
+    title :<input formControlName="title"> <br>
+    @if(myForm.get('title')?.hasError('required') && myForm.get('title')?.touched){
+    <div>
+        Champ obligatoire
+    </div>
+}
+@if(myForm.get('title')?.errors?.['minlength'] && myForm.get('title')?.touched){
+    <div>
+        Minimim {{myForm.get('title')?.errors?.['minlength']?.requiredLength }} caractères alors que tu as écris {{myForm.get('title')?.errors?.['minlength']?.actualLength }} 
+    </div>
+}
+  @if(myForm.get('title')?.hasError('pattern') && myForm.get('title')?.touched){
+    <div>
+        le titre ne doit pas contenir des espaces
+    </div>
+}
+     description :<input formControlName="description"> <br>
+      lieu :<input formControlName="place"> <br>
+       date :<input formControlName="date"> <br>
+        Nombre maximale :<input formControlName="nbmax"> <br>
+</form>
