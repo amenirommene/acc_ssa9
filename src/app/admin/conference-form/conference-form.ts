@@ -1,6 +1,7 @@
 import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-conference-form',
@@ -10,12 +11,25 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 })
 export class ConferenceForm {
 
+  private fb = inject(FormBuilder);
   myForm : FormGroup = new FormGroup({
     title : new FormControl('',[Validators.required, Validators.minLength(11), Validators.pattern("^[^ ]+$")]),
-    description: new FormControl(),
+    description: new FormControl('',Validators.required),
     date: new FormControl(),
     nbmax:new FormControl(),
     place : new FormControl()
   })
+  //FormBuilder
+myForm2 : FormGroup = this.fb.group({
+   title : ['',[Validators.required, Validators.minLength(11), Validators.pattern("^[^ ]+$")]],
+    description: ['',Validators.required],
+    date: [],
+    nbmax:[],
+    place : []
+})
+  formStatus = toSignal(this.myForm.statusChanges);
 
+  get Title(){
+    return this.myForm.get('title');
+  }
 }

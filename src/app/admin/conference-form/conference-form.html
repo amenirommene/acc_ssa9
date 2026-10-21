@@ -3,12 +3,12 @@
         <label for="title">Titre :</label>
         <input id="title" formControlName="title" class="form-control" [ngClass]="{'is-invalid': myForm.get('title')?.invalid && myForm.get('title')?.touched}">
         
-        @if(myForm.get('title')?.errors?.['required'] && myForm.get('title')?.touched) {
+        @if(Title?.errors?.['required'] && myForm.get('title')?.touched) {
             <div class="error-message">
                 Titre obligatoire
             </div>
         }
-        @if(myForm.get('title')?.errors?.['minlength'] && myForm.get('title')?.touched) {
+        @if(myForm.get('title')?.hasError('minlength') && myForm.get('title')?.touched) {
             <div class="error-message">
                 Titre doit faire au moins {{ myForm.get('title')?.errors?.['minlength'].requiredLength }} caractères
             </div>
@@ -38,6 +38,10 @@
 
     <div class="form-group">
         <label for="nbMax">Nombre maximal de participants :</label>
-        <input id="nbMax" type="number" formControlName="nbMax" class="form-control">
+        <input id="nbMax" type="number" formControlName="nbmax" class="form-control">
     </div>
+    <button [disabled]="myForm.invalid" type="submit">Ajouter</button>
+    <button [disabled]="formStatus() == 'INVALID'" type="submit">Ajouter</button>
 </form>
+
+{{ formStatus() }}
